@@ -5,12 +5,12 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet],
   template: `
-    <h1>Welcome to {{ title() }}!</h1>
-
+    <h1>Welcome to {{ title }}!</h1>
+  
     <router-outlet />
   `,
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('dogs-ng');
+  title = 'dogs-ng';
 }
