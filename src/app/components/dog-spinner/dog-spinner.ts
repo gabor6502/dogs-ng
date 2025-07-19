@@ -14,4 +14,10 @@ export class DogSpinner
    dogService = inject(DogService)
 
    dogsTest = signal<Array<Dog>>([])
+
+   // testing on init
+   ngOnInit(): void 
+   {
+      this.dogsTest.set(this.dogService.testList);
+   }
 }
