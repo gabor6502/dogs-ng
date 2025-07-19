@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { DogService } from '../../services/dog-service';
-import { Dog } from '../../models/dog.type';
+import { Dog, DogHTTP } from '../../models/dog.type';
+import { catchError, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dog-spinner',
@@ -16,8 +17,25 @@ export class DogSpinner
    dog = signal<Dog>({breed: "", imageUrl: ""})
 
    // testing on init
-   ngOnInit(): void 
+   ngOnInit(): void
    {
-      this.dog.set(this.dogService.getDogFromApi());
+      let breed: string
+      let urlTokens: string []
+
+      this.dogService.getDogFromApi()
+         .pipe(
+            catchError((error) => 
+            {
+               console.log(error)
+               throw error
+            })
+         ).subscribe((response: DogHTTP) => 
+            {
+               // urls have the format "https://images.dog.ceo/breeds/<breed>/<image>", so want 2nd last for breed
+               urlTokens = response.message.split('/')
+               breed = urlTokens[urlTokens.length - 2] 
+               
+               this.dog.set({breed: breed, imageUrl: response.message})
+            })
    }
 }

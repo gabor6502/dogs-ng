@@ -1,16 +1,20 @@
 import { inject, Injectable } from '@angular/core';
-import { Dog, DogHTTP } from '../models/dog.type';
+import { DogHTTP } from '../models/dog.type';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class DogService {
   
   http = inject(HttpClient)
   
-  getDogFromApi() : Dog
+  getDogFromApi() : Observable<DogHTTP>
   {
     const randDogUrl = 'https://dog.ceo/api/breeds/image/random'
+    return this.http.get<DogHTTP>(randDogUrl)
+
+    /*
+    
     
     let dog: Dog = {breed: "", imageUrl: ""} // init below
     let breed: string
@@ -29,10 +33,13 @@ export class DogService {
       // urls have the format "https://images.dog.ceo/breeds/<breed>/<image>", so want 2nd last for breed
       urlTokens = response.message.split('/')
       breed = urlTokens[urlTokens.length - 2] 
-
+      
       dog = {breed: breed, imageUrl: response.message}
+      console.log(`service made dog {${dog.breed}, ${dog.imageUrl}}`)
     })
 
     return dog;
+    */
   }
+    
 }
