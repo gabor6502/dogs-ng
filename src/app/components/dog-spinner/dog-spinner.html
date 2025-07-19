@@ -1,10 +1,4 @@
 <div>
-    <p>dog spinner!</p>
-    <p>dog spider....</p>
-    
-    @for (dog of dogsTest(); track $index)
-    {
-        <p>Dog Breed? {{dog.breed}}</p>
-    }
-
+    <img src="{{dog().imageUrl}}"/>
+    <p>{{dog().breed}}</p>
 </div>

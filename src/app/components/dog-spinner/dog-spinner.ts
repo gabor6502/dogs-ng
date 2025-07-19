@@ -13,11 +13,11 @@ export class DogSpinner
 {
    dogService = inject(DogService)
 
-   dogsTest = signal<Array<Dog>>([])
+   dog = signal<Dog>({breed: "", imageUrl: ""})
 
    // testing on init
    ngOnInit(): void 
    {
-      this.dogsTest.set(this.dogService.testList);
+      this.dog.set(this.dogService.getDogFromApi());
    }
 }
