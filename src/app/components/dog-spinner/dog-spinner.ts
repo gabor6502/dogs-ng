@@ -19,7 +19,12 @@ export class DogSpinner
    // testing on init
    ngOnInit(): void
    {
-      let breed: string
+      this.spinDog()
+   }
+
+   spinDog(): void
+   {
+            let breed: string
       let urlTokens: string []
 
       this.dogService.getDogFromApi()
