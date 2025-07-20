@@ -1,3 +1,7 @@
-<img src="{{dog().imageUrl}}"/>
-<p>{{dog().breed}}</p>
-<input type="button" value = "SPIN!" (click)="spinDog()"/>
+@for (dog of dogsToSpin(); track $index)
+{
+    <!--<img src="{{dog.imageUrl}}"/>-->
+    <p>{{dog.breed}}</p>
+}
+
+<input type="button" value = "SPIN!" (click)="spinDogs()"/>

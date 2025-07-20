@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { DogService } from '../../services/dog-service';
 import { Dog, DogHTTP } from '../../models/dog.type';
-import { catchError, Observable } from 'rxjs';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-dog-spinner',
@@ -14,17 +14,22 @@ export class DogSpinner
 {
    dogService = inject(DogService)
 
-   dog = signal<Dog>({breed: "", imageUrl: ""})
+   private DOGS_TO_SPIN: number = 10
+   dogsToSpin = signal<Array<Dog>>([])
 
-   // testing on init
+   currDog = signal<number>(0)
+
    ngOnInit(): void
    {
-      this.spinDog()
+      var initDog: Dog = {breed: "", imageUrl:""}
+      this.assignDog(initDog)
+      console.log(`dog assignned`)
+
+      this.dogsToSpin.update(() => {return [initDog]})
    }
 
-   spinDog(): void
+   private assignDog(dog: Dog): void
    {
-            let breed: string
       let urlTokens: string []
 
       this.dogService.getDogFromApi()
@@ -36,11 +41,35 @@ export class DogSpinner
             })
          ).subscribe((response: DogHTTP) => 
             {
+               dog.imageUrl = response.message
+               
                // urls have the format "https://images.dog.ceo/breeds/<breed>/<image>", so want 2nd last for breed
                urlTokens = response.message.split('/')
-               breed = urlTokens[urlTokens.length - 2] 
-               
-               this.dog.set({breed: breed, imageUrl: response.message})
+               dog.breed = urlTokens[urlTokens.length - 2] 
+
+               console.log(`${dog.breed}, ${dog.imageUrl}`)
             })
    }
+   
+   private loadDogs(): void
+   {
+      let nextDog: Dog
+
+      let dogArray: Dog[] = new Array(this.DOGS_TO_SPIN)
+
+      for (let i = 0; i < dogArray.length; i++)
+      {
+         nextDog = {breed: "", imageUrl: ""}
+         this.assignDog(nextDog)
+         dogArray[i] = nextDog
+      }
+
+      this.dogsToSpin.update((values) => {return [...dogArray]})
+   }
+
+   spinDogs(): void
+   {
+      this.loadDogs()
+   }
+
 }
