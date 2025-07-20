@@ -2,33 +2,32 @@ import { Component, inject, signal } from '@angular/core';
 import { DogService } from '../../services/dog-service';
 import { Dog, DogHTTP } from '../../models/dog.type';
 import { catchError } from 'rxjs';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-dog-spinner',
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl:'./dog-spinner.html',
   styleUrl: './dog-spinner.scss',
   providers: [DogService]
 })
 export class DogSpinner 
 {
-   dogService = inject(DogService)
+   private dogService = inject(DogService)
 
+   private SPIN_MILLIS = 500
    private DOGS_TO_SPIN: number = 10
-   dogsToSpin = signal<Array<Dog>>([])
+
+   dogsSpun = signal<Array<Dog>>([])
 
    currDog = signal<number>(0)
 
    ngOnInit(): void
    {
-      var initDog: Dog = {breed: "", imageUrl:""}
-      this.assignDog(initDog)
-      console.log(`dog assignned`)
-
-      this.dogsToSpin.update(() => {return [initDog]})
+      this.spinDogs()
    }
 
-   private assignDog(dog: Dog): void
+   private appendNewDog(): void
    {
       let urlTokens: string []
 
@@ -41,35 +40,38 @@ export class DogSpinner
             })
          ).subscribe((response: DogHTTP) => 
             {
-               dog.imageUrl = response.message
-               
+              
                // urls have the format "https://images.dog.ceo/breeds/<breed>/<image>", so want 2nd last for breed
                urlTokens = response.message.split('/')
-               dog.breed = urlTokens[urlTokens.length - 2] 
 
-               console.log(`${dog.breed}, ${dog.imageUrl}`)
+               this.dogsSpun.update((list) =>
+                   {return [...list, {breed: urlTokens[urlTokens.length - 2], imageUrl: response.message }]})
             })
    }
    
    private loadDogs(): void
    {
-      let nextDog: Dog
+      this.dogsSpun.set([])
 
-      let dogArray: Dog[] = new Array(this.DOGS_TO_SPIN)
-
-      for (let i = 0; i < dogArray.length; i++)
+      for (let i = 0; i < this.DOGS_TO_SPIN; i++)
       {
-         nextDog = {breed: "", imageUrl: ""}
-         this.assignDog(nextDog)
-         dogArray[i] = nextDog
+         this.appendNewDog();
       }
 
-      this.dogsToSpin.update((values) => {return [...dogArray]})
    }
 
    spinDogs(): void
    {
+      this.currDog.set(0)
       this.loadDogs()
+
+      for (let i = 0; i < this.DOGS_TO_SPIN; i++)
+      {
+         setTimeout(() => 
+         {
+            this.currDog.set(this.currDog() + 1)
+         }, this.SPIN_MILLIS)
+      }
    }
 
 }

@@ -1,7 +1,21 @@
-@for (dog of dogsToSpin(); track $index)
+<!--@for (dog of dogsSpun(); track $index)
 {
-    <!--<img src="{{dog.imageUrl}}"/>-->
-    <p>{{dog.breed}}</p>
+    @if (currDog() == $index)
+    {
+        <div>
+            <img ngSrc="{{dog.imageUrl}}" priority/>
+            <p>{{dog.breed}}</p>
+        </div>
+    }
+}-->
+
+@for (dog of dogsSpun(); track $index)
+{
+    <div style="display: {{currDog() === index ? "" : ""}}">
+        <img ngSrc="{{dog.imageUrl}}" priority/>
+        <p>{{dog.breed}}</p>
+    </div>
 }
+
 
 <input type="button" value = "SPIN!" (click)="spinDogs()"/>
