@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './high-scores.html',
   styleUrl: './high-scores.scss'
 })
-export class HighScores {
-
+export class HighScores 
+{
+  // emtpy
 }

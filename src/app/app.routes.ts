@@ -10,5 +10,9 @@ export const routes: Routes =
     {
         path: 'about',
         loadComponent: () => {return import('./components/about/about').then((module) => module.About)}
+    },
+    {
+        path: 'scores',
+        loadComponent: () => {return import('./components/scores-page/scores-page').then((module) => module.ScoresPage)}
     }
 ];
