@@ -58,6 +58,8 @@ export class DogSpinner
          this.appendNewDog();
       }
 
+      // look into some form of caching so the images load faster
+
    }
 
    spinDogs(): void
