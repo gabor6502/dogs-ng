@@ -6,7 +6,7 @@
             <div><h2>Score</h2></div>
             <div><h2>Date</h2></div>
         </span>
-        @for (score of scores(); track score.name)
+        @for (score of scores(); track $index)
         {
             <span>
                 <div>{{score.name}}</div>
