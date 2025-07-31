@@ -1,3 +1,13 @@
 <div class="scoresContainer">
     <h1>Scores Page</h1>
+    <div class="scoreList">
+        @for (score of scores(); track score.name)
+        {
+            <span>
+                <div>{{score.name}}</div>
+                <div>{{score.score}}</div>
+                <div>{{score.date}}</div>
+            </span>
+        }
+    </div>
 </div>
