@@ -1,6 +1,11 @@
 <div class="scoresContainer">
-    <h1>Scores Page</h1>
+    <h1>🎖️High Scores🎖️</h1>
     <div class="scoreList">
+        <span>
+            <div><h2>Username</h2></div>
+            <div><h2>Score</h2></div>
+            <div><h2>Date</h2></div>
+        </span>
         @for (score of scores(); track score.name)
         {
             <span>
