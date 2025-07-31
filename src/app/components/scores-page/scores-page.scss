@@ -4,17 +4,21 @@
 
     .scoreList
     {
-        padding-left: 25%;
-        
+
         span
         {
-            
+            border: 2px solid red;
+
             display: flex;
 
             div
             {
+                border: 2px solid green;
+
+                text-align: center;
                 width: 100%;
                 display: flex;
+                justify-content: center;
                 align-items: center;
             }
         }

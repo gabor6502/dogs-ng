@@ -15,19 +15,14 @@ export class DogSpinner
 {
    private dogService = inject(DogService)
 
-   private SPIN_MILLIS = 500
-   private DOGS_TO_SPIN: number = 10
-
-   dogsSpun = signal<Array<Dog>>([])
-
-   currDog = signal<number>(0)
+   dog= signal<Dog>({imageUrl: "", breed: ""})
 
    ngOnInit(): void
    {
-      this.spinDogs()
+      this.newDog();
    }
 
-   private appendNewDog(): void
+   newDog(): void
    {
       let urlTokens: string []
 
@@ -44,36 +39,7 @@ export class DogSpinner
                // urls have the format "https://images.dog.ceo/breeds/<breed>/<image>", so want 2nd last for breed
                urlTokens = response.message.split('/')
 
-               this.dogsSpun.update((list) =>
-                   {return [...list, {breed: urlTokens[urlTokens.length - 2], imageUrl: response.message }]})
+               this.dog.set({breed: urlTokens[urlTokens.length - 2], imageUrl: response.message })
             })
    }
-   
-   private loadDogs(): void
-   {
-      this.dogsSpun.set([])
-
-      for (let i = 0; i < this.DOGS_TO_SPIN; i++)
-      {
-         this.appendNewDog();
-      }
-
-      // look into some form of caching so the images load faster
-
-   }
-
-   spinDogs(): void
-   {
-      this.currDog.set(0)
-      this.loadDogs()
-
-      for (let i = 0; i < this.DOGS_TO_SPIN; i++)
-      {
-         setTimeout(() => 
-         {
-            this.currDog.set(this.currDog() + 1)
-         }, this.SPIN_MILLIS)
-      }
-   }
-
 }

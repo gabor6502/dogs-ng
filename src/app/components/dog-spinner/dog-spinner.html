@@ -1,6 +1,6 @@
 <div>
-    <img ngSrc="{{dogsSpun()[currDog()].imageUrl}}" priority/>
-    <p>{{dogsSpun()[currDog()].breed}}</p>
+    <img ngSrc="{{dog().imageUrl}}" priority/>
+    <p>{{dog().breed}}</p>
 </div>
 
-<input type="button" value = "SPIN!" (click)="spinDogs()"/>
+<input type="button" value = "SPIN!" (click)="newDog()"/>
