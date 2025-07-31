@@ -1,6 +1,6 @@
 <div>
-    <img ngSrc="{{dog().imageUrl}}" priority/>
+    <img ngSrc="{{dog().imageUrl}}" width="250" height="250"/>
     <p>{{dog().breed}}</p>
 </div>
 
-<input type="button" value = "SPIN!" (click)="newDog()"/>
+<input id="spinButton" type="button" value = "SPIN!" (click)="newDog()"/>
