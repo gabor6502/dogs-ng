@@ -1,15 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { DogSpinner } from "../dog-spinner/dog-spinner";
-import { HighScores } from "../high-scores/high-scores";
+import { UserHighScores } from "../user-high-scores/user-high-scores";
 import { Collected } from "../collected/collected";
 
 @Component({
   selector: 'app-home',
-  imports: [DogSpinner, HighScores, Collected],
+  imports: [DogSpinner, UserHighScores, Collected],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class Home
 {
-
+  // empty
 }
