@@ -12,3 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes)
   ]
 };
+
+// todo: add a provider in here with the routing strategy - don't want to reload the Home page every time we navigate away from it!
+// https://blog.bitsrc.io/angular-route-reuse-strategy-c7939ebbf797
