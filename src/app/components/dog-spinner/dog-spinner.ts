@@ -15,7 +15,7 @@ export class DogSpinner
 {
    private dogService = inject(DogService)
 
-   dog= signal<Dog>({imageUrl: "", breed: ""})
+   dog = signal<Dog>({imageUrl: "", breed: ""})
 
    ngOnInit(): void
    {
