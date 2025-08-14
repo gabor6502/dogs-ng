@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './collected.html',
   styleUrl: './collected.scss'
 })
-export class Collected {
-
+export class Collected 
+{
+  // figure out how to communicate between this component and the spinner
 }
